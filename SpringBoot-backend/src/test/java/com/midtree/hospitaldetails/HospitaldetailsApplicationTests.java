@@ -1,7 +1,11 @@
-
 package com.midtree.hospitaldetails;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -40,7 +44,7 @@ class HospitaldetailsApplicationTests {
 	@MockBean
 	private PatientRepository patientrepository;
 	 
-	@Test
+	@Test  //working 
 	public void showDoctorInformation() {
 		when(doctorrepository.findAll()).thenReturn(Stream
 				.of(new Doctor("chandu",22,"male","neurologist"),new Doctor("rajan",22,"male","neurologist")).collect(Collectors.toList()));
@@ -57,15 +61,26 @@ class HospitaldetailsApplicationTests {
 				
 	}
 	
+	@Test //working
+	public void showAllDOCTORStinformationTest() 
+	{
+		   List<Doctor> list = (List<Doctor>) doctorrepository.findAll() ;
+		  assertThat(list).size().isGreaterThan(0);
+	}
+	
 	@Test
-	public void showPatientInformationTest() {
-		Integer id=1;
-		when(service.showPatientInformation(id)).thenReturn((Patient) Stream.of(new Patient(1,"kam",22,"chan",LocalDate.now(),"male","has")).collect(Collectors.toList()));
-		assertEquals(1,((List<Patient>) service.showPatientInformation(id)).size());
+	public void creatingdoctorTest() {
+		Doctor d=new Doctor();
+		d.setName("k");
+		d.setAge(22);
+		d.setGender("male");
+		d.setField("general");
+		d.setPatient_count();
+		doctorrepository.save(d);
+		//assertNotNull(doctorrepository.findByName("k").getName());
 		
 	}
 	
 }
-
 
 
